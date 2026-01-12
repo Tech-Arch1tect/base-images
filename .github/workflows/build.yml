@@ -1,0 +1,52 @@
+name: Build Base Images
+
+on:
+  push:
+    branches:
+      - main
+    paths:
+      - 'berth-base/**'
+      - 'berth-agent-base/**'
+      - '.github/workflows/build.yml'
+  schedule:
+    - cron: '0 0 * * 0'
+  workflow_dispatch:
+
+jobs:
+  berth-base:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+      packages: write
+      id-token: write
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Build and push berth-base
+        uses: chainguard-images/actions/apko-publish@main
+        with:
+          config: berth-base/apko.yaml
+          tag: docker.io/techarchitect/berth-base:latest
+          generic-user: ${{ secrets.DOCKER_USERNAME }}
+          generic-pass: ${{ secrets.DOCKER_PASSWORD }}
+
+  berth-agent-base:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+      packages: write
+      id-token: write
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Build and push berth-agent-base
+        uses: chainguard-images/actions/apko-publish@main
+        with:
+          config: berth-agent-base/apko.yaml
+          tag: docker.io/techarchitect/berth-agent-base:latest
+          generic-user: ${{ secrets.DOCKER_USERNAME }}
+          generic-pass: ${{ secrets.DOCKER_PASSWORD }}

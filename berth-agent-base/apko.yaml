@@ -1,0 +1,42 @@
+contents:
+  repositories:
+    - https://dl-cdn.alpinelinux.org/alpine/v3.23/main
+    - https://dl-cdn.alpinelinux.org/alpine/v3.23/community
+  packages:
+    - busybox
+    - ca-certificates-bundle
+    - tzdata
+    - docker-cli
+    - docker-cli-compose
+    - curl
+
+accounts:
+  groups:
+    - groupname: berth-agent
+      gid: 65532
+  users:
+    - username: berth-agent
+      uid: 65532
+      gid: 65532
+  run-as: 0
+
+entrypoint:
+  command: /app/berth-agent
+
+work-dir: /app
+
+paths:
+  - path: /app
+    type: directory
+    uid: 0
+    gid: 0
+    permissions: 0o755
+  - path: /opt/compose
+    type: directory
+    uid: 0
+    gid: 0
+    permissions: 0o755
+
+archs:
+  - x86_64
+  - aarch64
