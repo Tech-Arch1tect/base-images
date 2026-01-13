@@ -1,13 +1,15 @@
 contents:
+  keyring:
+    - https://packages.wolfi.dev/os/wolfi-signing.rsa.pub
   repositories:
-    - https://dl-cdn.alpinelinux.org/alpine/v3.23/main
-    - https://dl-cdn.alpinelinux.org/alpine/v3.23/community
+    - https://packages.wolfi.dev/os
   packages:
+    - wolfi-baselayout
     - busybox
     - ca-certificates-bundle
     - tzdata
     - docker-cli
-    - docker-cli-compose
+    - docker-compose
     - curl
 
 accounts:
@@ -36,6 +38,16 @@ paths:
     uid: 0
     gid: 0
     permissions: 0o755
+  - path: /usr/libexec/docker/cli-plugins
+    type: directory
+    uid: 0
+    gid: 0
+    permissions: 0o755
+  - path: /usr/libexec/docker/cli-plugins/docker-compose
+    type: symlink
+    source: /usr/bin/docker-compose
+    uid: 0
+    gid: 0
 
 archs:
   - x86_64
