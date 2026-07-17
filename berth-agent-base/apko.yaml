@@ -38,16 +38,6 @@ paths:
     uid: 0
     gid: 0
     permissions: 0o755
-  - path: /usr/libexec/docker/cli-plugins
-    type: directory
-    uid: 0
-    gid: 0
-    permissions: 0o755
-  - path: /usr/libexec/docker/cli-plugins/docker-compose
-    type: symlink
-    source: /usr/bin/docker-compose
-    uid: 0
-    gid: 0
 
 archs:
   - x86_64
